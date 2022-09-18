@@ -1,0 +1,97 @@
+#include <iostream>
+#include <bits/stdc++.h>
+int arr[1]={0};
+using namespace std;
+
+bool issafe(vector<vector<int>> &geeks, int row, int col)
+{
+    int x = row;
+    int y = col;
+
+    while (y >= 0)
+    {
+        if (geeks[x][y] == 1)
+        {
+            return false;
+        }
+        y--;
+    }
+    y = col;
+
+    while (x >= 0)
+    {
+        if (geeks[x][y] == 1)
+        {
+            return false;
+        }
+        x--;
+    }
+    x = row;
+
+    while (x >= 0 & y >= 0)
+    {
+        if (geeks[x][y] == 1)
+        {
+            return false;
+        }
+        x--;
+        y--;
+    }
+    x = row;
+    y = col;
+    while (x >= 0 & y < geeks[0].size())
+    {
+        if (geeks[x][y] == 1)
+        {
+            return false;
+        }
+        x--;
+        y++;
+    }
+    return true;
+}
+
+bool solve(vector<vector<int>> &geeks, int row)
+{
+    if (row >= geeks[0].size())
+    {
+        for (int i = 0; i < geeks[0].size(); i++)
+        {
+            for (int j = 0; j < geeks[0].size(); j++)
+            {
+				if(geeks[i][j]==1){
+					cout <<"{"<<i+1<<"-"<<j+1<<"}"<< " ";
+				}
+                
+            }
+            
+        }
+        cout << " ";
+		arr[0]++;
+        return false;
+    }
+
+    for (int i = 0; i < geeks[0].size(); i++)
+    {
+        if (issafe(geeks, row, i))
+        {
+            geeks[row][i] = 1;
+            if (solve(geeks, row + 1))
+            {
+                return true;
+            }
+            geeks[row][i] = 0;
+        }
+    }
+    return false;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector<vector<int>> geeks(n, vector<int>(n, 0));
+    solve(geeks, 0);
+	cout<<endl;
+	cout<<arr[0];
+}
