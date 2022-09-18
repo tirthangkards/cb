@@ -1,0 +1,57 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+bool check(string s){
+    
+    string st=s;
+    
+    reverse(s.begin(),s.end());
+    
+    return st==s;
+}
+int count(string s,int dp[]){
+      if(check(s)){
+            return 1;
+        }
+    if(s.length()==0){
+        
+       
+        return 0;
+    }
+
+	if(dp[s.length()]!=-1)return dp[s.length()];
+    
+    int ans=INT_MAX;
+    
+    for(int j=0;j<s.length();j++){
+        string st=s.substr(0,j+1);
+        
+        if(check(st)){
+			
+            ans=min(ans,1+count(s.substr(j+1),dp));
+        }
+
+        
+    }
+    
+    return dp[s.length()]=ans;
+}
+int main()
+{
+    int t;
+    cin>>t;
+    
+    
+    for(int i=0;i<t;i++){
+        string s;
+        cin>>s;
+        
+		int dp[s.length()+1];
+		memset(dp,-1,sizeof(dp));
+        
+        cout<<count(s,dp)-1<<endl;
+    }
+
+    return 0;
+}
