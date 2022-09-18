@@ -1,53 +1,74 @@
-// C++ implementation of the approach
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+
 using namespace std;
 
-// Function to return the maximum profit
-// that can be made after buying and
-// selling the given stocks
-int maxProfit(int price[], int start, int end)
-{
+int main() {
 
-	// If the stocks can't be bought
-	if (end <= start)
-		return 0;
+	int n;
+	cin>>n;
+	int arr[n];
 
-	// Initialise the profit
-	int profit = 0;
+	for(int i=0;i<n;i++){
+		cin>>arr[i];
+	 }
 
-	// The day at which the stock
-	// must be bought
-	for (int i = start; i < end; i++) {
+	// int	min = *min_element(arr, arr + n);
 
-		// The day at which the
-		// stock must be sold
-		for (int j = i + 1; j <= end; j++) {
+	// //cout<<min<<endl;
+	// int idx=-1;
+	// for(int i=0;i<n;i++){
+	// 	if(min==arr[i]){
+	// 		idx=i;
+	// 	}
+	// }
+	
+	//cout<<idx<<endl;
 
-			// If buying the stock at ith day and
-			// selling it at jth day is profitable
-			if (price[j] > price[i]) {
+	/*-------------------------------------------*/
 
-				// Update the current profit
-				int curr_profit
-					= price[j] - price[i]
-					+ maxProfit(price, start, i - 1)
-					+ maxProfit(price, j + 1, end);
+	// int size = n-(idx+1);
 
-				// Update the maximum profit so far
-				profit = max(profit, curr_profit);
-			}
+	// //cout<<size<<endl;
+	// int new_arr[size];
+
+	int idx=0;
+	int min= 435678;
+
+	for(int i=idx+1;i<n;i++){
+		if(arr[i]<min){
+			min=arr[i];
+			idx=i;
 		}
+		
 	}
-	return profit;
-}
 
-// Driver code
-int main()
-{
-	int price[] = { 100, 180, 260, 310, 40, 535, 695 };
-	int n = sizeof(price) / sizeof(price[0]);
+	int max=-356373;
 
-	cout << maxProfit(price, 0, n - 1);
+	for(int i=idx+1;i<n;i++){
+		if(arr[i]>max){
+			max=arr[i];
+		}
+		
+	}
+
+	// for(int i=0;i<size;i++){
+		
+	// 	cout<<new_arr[i]<<" ";
+	// }	
+
+
+
+	//max = *max_element(idx+1, arr+n);
+
+	//cout<<max;
+	int ans=max-min;
+	//for(int i=0;i<size;i++){
+		
+	// 	cout<<new_arr[i]<<" ";
+	// }	
+	cout<<ans<<endl;
+
 
 	return 0;
+
 }
