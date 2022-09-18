@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isPossible(vector<int> v, int painters, int mid) {
+    int count_painter=1;
+    int time_sum=0;
+
+    for(int i=0; i<v.size(); i++) {
+        if(time_sum+v[i]<=mid) {
+            time_sum+=v[i];
+        } else {
+            count_painter++;
+            time_sum=0;
+            i--;
+            if(count_painter>painters) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+int main()
+{
+
+    int size;
+    cin>>size;
+
+    int painters;
+    cin>>painters;
+
+    vector<int> v;
+    int sum=0;
+    for(int i=0; i<size; i++) {
+        int n;
+        cin>>n;
+        v.push_back(n);
+        sum+=n;
+    }
+    sort(v.begin(),v.end());    
+    int start=*min_element(v.begin(), v.end());
+    int end=sum;
+    int mid=(start+end)/2;
+
+    int ans=-1;
+    while(start<=end) 
+    {
+        if(isPossible(v, painters, mid)) {
+            ans=mid;
+            end=mid-1;
+        } else {
+            start=mid+1;
+        }
+        mid=(start+end)/2;
+    }
+    cout<<ans<<endl;
+    return 0;
+}
