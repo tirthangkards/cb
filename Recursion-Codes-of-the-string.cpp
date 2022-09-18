@@ -1,27 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void solve(string nums, char letters[], vector<string> &ans, string &output, int index) {
-    int number=nums[index];
-    char letter=letters[number];
-    if(index>=nums.length()) {
-        cout<<output;
-        ans.push_back(output);
-        return;
-    }
-    output.push_back(letter);
-    solve(nums,letters,ans,output,index+1);
-    output.pop_back();
+void GenerateString(int n,vector<string>&ans,string output){
+	if(n==0){
+		ans.push_back(output);
+		return ;
+	}
+	int t=n%10;
+	char a='a'+t-1;
+	GenerateString(n/10,ans,a+output);
+
+	if(n>9){
+		int t=n%100;
+		if(t>=0 && t<27){
+			char ab='a'+t-1;
+			GenerateString(n/100,ans,ab+output);
+		}
+	}
 }
 
-int main() {
-    string nums="1125";
-    char letters[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-    vector<string> ans;
-    string output;
-
-    for(string str: ans) {
-        cout<<str<<endl;
-    }
-    return 0;
+int main(){
+	int n;
+	cin>>n;
+	vector<string>ans;
+	GenerateString(n,ans,"");
+	sort(ans.begin(),ans.end());
+	cout<<"[";int i;
+	for( i=0;i<ans.size()-1;i++){
+		cout<<ans[i]<<", ";
+	}cout<<ans[i]<<"]";
 }
